@@ -1,44 +1,5 @@
+from bcolors import bcolors
 from random import randint
-import getopt, sys
-
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-    BLACK = '\033[30m'
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    BLUE = '\033[34m'
-    PURPLE = '\033[35m'
-    CYAN = '\033[36m'
-    GREY = '\033[37m'
-    BROWN = '\033[38m'
-
-    BACKGROUND_BLACK = '\033[40m'
-    BACKGROUND_RED = '\033[41m'
-    BACKGROUND_GREEN = '\033[42m'
-    BACKGROUND_YELLOW = '\033[43m'
-    BACKGROUND_BLUE = '\033[44m'
-    BACKGROUND_PURPLE = '\033[45m'
-    BACKGROUND_CYAN = '\033[46m'
-    BACKGROUND_GREY = '\033[47m'
-
-    DARK_GREY = '\033[90m'
-    LIGHT_RED = '\033[91m'
-    LIGHT_GREEN = '\033[92m'
-    LIGHT_YELLOW = '\033[93m'
-    LIGHT_BLUE = '\033[94m'
-    LIGHT_PURPLE = '\033[95m'
-    LIGHT_CYAN = '\033[96m'
-    WHITE = '\033[97m'
 
 
 class Board:
@@ -143,7 +104,7 @@ class Board:
         for g in guess:
             print g,
 
-        pegs = board.check(guess)
+        pegs = self.check(guess)
         num_correct = 0
         for p in pegs:
             if p == Board.CORRECT_PLACE:
@@ -153,61 +114,9 @@ class Board:
                 print 'X',
         print
 
-        if num_correct == board.num_goal:
+        if num_correct == self.num_goal:
             print bcolors.OKGREEN + "YOU WON !!"
-            for g in board.goal:
+            for g in self.goal:
                 print g,
             print
             self.won = True
-
-
-if __name__ == "__main__":
-    raw_args = sys.argv[1:]
-    options = "g:c:m:"
-    long_options = ["num-goal=", "num-colors=", "max-moves="]
-
-    try:
-        num_goal = None
-        num_colors = None
-        max_moves = None
-        arguments, values = getopt.getopt(raw_args, options, long_options)
-        for arg, val in arguments:
-            if arg in ("-g", "--num-goal"):
-                num_goal = int(val)
-            elif arg in ("-c", "--num-colors"):
-                num_colors = int(val)
-            elif arg in ("-m", "--max-moves"):
-                max_moves = int(val)
-    except:
-        header = bcolors.LIGHT_PURPLE
-        text = bcolors.LIGHT_YELLOW
-        sep = bcolors.LIGHT_CYAN
-        args = bcolors.LIGHT_GREEN
-        msg = [
-            header, "Optional command line arguments",
-            '\n',
-            args, "  -g",
-            sep, ", ",
-            args, "--num-goal= ",
-            text, "number of balls to guess (default 4)",
-            '\n',
-            args, "  -c",
-            sep, ", ",
-            args, "--num-colors= ",
-            text, "number of available colors (max 8)",
-            '\n',
-            args, "  -m",
-            sep, ", ",
-            args, "--max-moves= ",
-            text, "maximum tries to guess secret (default 12)",
-            '\n',
-            bcolors.ENDC]
-        print ''.join(msg)
-
-    board = Board(num_goal=num_goal, num_colors=num_colors, max_moves=max_moves)
-    for idx in range(0, board.num_colors):
-        print Board.COLORS[idx],
-    print "\n%s balls to guess in %s tries" % (board.num_goal, board.max_moves)
-    print
-    while not board.won and board.moves_made < board.max_moves:
-        board.move()
