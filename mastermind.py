@@ -115,8 +115,29 @@ class Board:
         print
 
         if num_correct == self.num_goal:
-            print bcolors.OKGREEN + "YOU WON !!"
-            for g in self.goal:
-                print g,
-            print
             self.won = True
+
+    def keep_playing(self):
+        if self.won:
+            print bcolors.OKGREEN + "\n*** YOU WON !! ***"
+            return False
+
+        if self.moves_made > self.max_moves:
+            print bcolors.FAIL + "\n:-( YOU RAN OUT OF MOVES :-("
+            return False
+
+        return True
+
+    def play(self):
+        for idx in range(0, self.num_colors):
+            print Board.COLORS[idx],
+        print "\n%s balls to guess in %s tries" % (self.num_goal, self.max_moves)
+        print
+
+        while self.keep_playing():
+            self.move()
+
+        print bcolors.LIGHT_CYAN+"\nCorrect Answer: ",
+        for g in self.goal:
+            print g,
+        print

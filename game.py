@@ -47,9 +47,4 @@ if __name__ == "__main__":
         print ''.join(msg)
 
     board = Board(num_goal=num_goal, num_colors=num_colors, max_moves=max_moves)
-    for idx in range(0, board.num_colors):
-        print Board.COLORS[idx],
-    print "\n%s balls to guess in %s tries" % (board.num_goal, board.max_moves)
-    print
-    while not board.won and board.moves_made < board.max_moves:
-        board.move()
+    board.play()
