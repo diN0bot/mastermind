@@ -16,14 +16,14 @@ class Board:
         7: bcolors.WHITE+bcolors.UNDERLINE+"W"+bcolors.ENDC+bcolors.WHITE+"hite"+bcolors.ENDC,
     }
     COLOR_ABBREVIATIONS = {
-        "R": COLORS[0], "RE": COLORS[0],
-        "G": COLORS[1], "GR": COLORS[1],
-        "U": COLORS[2],
-        "Y": COLORS[3], "YE": COLORS[3],
-        "N": COLORS[4], "BR": COLORS[4],
-        "O": COLORS[5], "OR": COLORS[5],
-        "A": COLORS[6],
-        "W": COLORS[7], "WH": COLORS[7],
+        "R": COLORS[0], "RE": COLORS[0], "RED": COLORS[0],
+        "G": COLORS[1], "GR": COLORS[1], "GREEN": COLORS[1],
+        "U": COLORS[2], "BLUE": COLORS[2],
+        "Y": COLORS[3], "YE": COLORS[3], "YELLOW": COLORS[3],
+        "N": COLORS[4], "BR": COLORS[4], "BROWN": COLORS[4],
+        "O": COLORS[5], "OR": COLORS[5], "ORANGE": COLORS[5],
+        "A": COLORS[6], "BLACK": COLORS[6],
+        "W": COLORS[7], "WH": COLORS[7], "WHITE": COLORS[7],
     }
 
     def __init__(self, num_goal=4, num_colors=8, max_moves=12):
