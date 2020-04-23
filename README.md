@@ -1,6 +1,6 @@
 # Master Mind
 
-A single-player logic-based guessing game played on the command line.
+A single-player logic-based guessing game played on the command line. Based on [this boardgame](https://en.wikipedia.org/wiki/Mastermind_(board_game)).
 
 ## Rules and Example
 
