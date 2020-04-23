@@ -58,10 +58,7 @@ This starts a game with:
 * 8 possible colors for each ball (so the secret is 4 bytes)
 * 12 tries
 
-**Optional command line arguments:**
-* `-g, --num-goal=` the number of balls to guess (default 4)
-* `-c, --num-colors=` the number of available colors (max 8)
-* `-m, --max-moves=` the maximum tries to guess secret (default 12)
+<img src="screen_shot_command_line.png" width="400">
 
 Here's an example using command line arguments to start two games in which the secret is 2 balls long:
 1. In the first game, the player has 6 tries to guess the secret, and succeeds!
@@ -94,3 +91,60 @@ Thoughts:
 The Board class was originally immutable. Each instance created a secret, and then guesses were made and discarded. Eventually I added logic for counting moves and a more playable user experience. It could be nice to save guesses, and create a visually appealling board rather than a command line log, though as I find it playable as-is I'm not planning to make any more improvements. I leave it up to students to recreate as a web or mobile app.
 
 The Board class is well organized in terms of state and single-purpose testable methods, however the user presentation is mixed up with the game logic and state. This intermingling makes it harder to test and extend this program. Using a MVC (model, view, controller) design pattern would be helpful, and is one benefit of moving this game into a mobile app or web framework.
+
+## Another game example
+
+Here's a game where we have to guess 8 balls
+
+<img src="screen_shot_8ball.png" width="400">
+
+The first four guesses, #18-#15, try all of the colors in pairs.
+
+The next few guesses narrow down exactly how many balls of each color are in the secret.
+
+Using blue balls as empty placeholders, guess #14 tells us that there is one green ball, and by deduction, one red ball:
+
+```
+[g .] . . [r . . .]
+```
+
+The above notation is a short hand for what we've learned: there is one green ball in the left two spots, and one red ball on the right half.
+
+Guess #13 tells us there are two orange balls, one on the left half and one on the right of the secret (and no browns):
+
+```
+[o . . .][r o . .]
+[g .]
+```
+
+Guesses #12 tells us multiple things:
+- There are two black balls, one on the left half and one on the right of the secret
+- There are two white balls, also divided onto the left and right sides
+
+```
+[o a w .][r o a w]
+[g .]
+```
+
+Guesses #11, #10 and #9 narrow down which balls are in which quarter of the secret.
+
+#11 tells us the left hand black ball is with green on the left quarter, and thus organge and white  make up the second quarter.
+```
+[g a][o w][r o a w]
+```
+
+#10 tells us that black and orange are in the third and fourth quarters, respectively, however we don't know which is paired with red and which is paired with white.
+
+```
+[g a][o w][r w  . .]
+          [a .][o .]
+```
+
+#9 tells us that red is paired with balck.
+```
+[g a][o w][r a][o w]
+```
+
+In guess #8, I went ahead and made the full guess of what we had, knowing that we could flip individual pairs one-by-one until we found the exact right ordering.
+
+We go lucky: all balls were in the wrong place, thus I flipped all pairs and guessed the secret correctly.
