@@ -45,6 +45,7 @@ if __name__ == "__main__":
             '\n',
             bcolors.ENDC]
         print ''.join(msg)
+        exit(1)
 
     board = Board(num_goal=num_goal, num_colors=num_colors, max_moves=max_moves)
     board.play()
